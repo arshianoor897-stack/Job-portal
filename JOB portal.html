@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HireHub – Job Portal</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f3f5fb;--card:#fff;--tx:#18203a;--mu:#6b7690;--br:#e3e8f2;--pr:#4f46e5;--pr2:#7c3aed;--prt:#fff;--ok:#12805c;--okb:#dcf5ea;--wa:#a16207;--wab:#fdf1c9;--bad:#c62839;--badb:#fde3e6;--inf:#1d5fd1;--infb:#e0ecff;--sh:0 4px 18px rgba(30,40,90,.07)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0e1220;--card:#171d30;--tx:#e9edf8;--mu:#97a2bd;--br:#273049;--pr:#818cf8;--pr2:#a78bfa;--prt:#0e1220;--ok:#4cd1a0;--okb:#123a2e;--wa:#f2c94c;--wab:#3b3210;--bad:#ff8a95;--badb:#40181f;--inf:#7fb0ff;--infb:#16294d;--sh:none}}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select{font:inherit;color:var(--tx)}input,select{background:var(--card);border:1px solid var(--br);border-radius:10px;padding:9px 12px;width:100%}
+input:focus,select:focus{outline:2px solid var(--pr);outline-offset:-1px}
+.btn{border:1px solid var(--br);background:var(--card);border-radius:10px;padding:8px 14px;cursor:pointer;font-weight:600}
+.btn.p{background:linear-gradient(135deg,var(--pr),var(--pr2));color:var(--prt);border:0}.btn.d{color:var(--bad)}.btn.sm{padding:4px 10px;font-size:13px}
+.auth{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr}
+.hero{background:linear-gradient(145deg,#312e81,#6d28d9);color:#fff;padding:48px;display:flex;flex-direction:column;justify-content:center;gap:18px}
+.hero h1{font-size:38px;line-height:1.15;margin:0}.hero p{opacity:.9;max-width:420px}.hero .pts div{margin:6px 0}
+.form{display:flex;align-items:center;justify-content:center;padding:24px}.fc{width:100%;max-width:400px}
+.fc h2{margin:0 0 4px;font-size:24px}.fl{display:flex;flex-direction:column;gap:3px;margin:10px 0;font-size:13px;color:var(--mu)}
+.seg{display:flex;background:var(--bg);border-radius:10px;padding:3px;margin:12px 0}.seg button{flex:1;border:0;background:none;padding:8px;border-radius:8px;cursor:pointer;font-weight:600;color:var(--mu)}
+.seg button.on{background:var(--card);color:var(--tx);box-shadow:var(--sh)}
+.demo{margin-top:14px;padding:12px;border:1px dashed var(--br);border-radius:12px;font-size:13px;color:var(--mu)}.demo .btn{margin:4px 4px 0 0}
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+aside{background:var(--card);border-right:1px solid var(--br);padding:18px 12px;display:flex;flex-direction:column;gap:4px}
+.logo{font-weight:800;font-size:20px;padding:4px 10px 16px;background:linear-gradient(135deg,var(--pr),var(--pr2));-webkit-background-clip:text;background-clip:text;color:transparent}
+aside .nv{display:flex;gap:10px;align-items:center;border:0;background:none;padding:10px 12px;border-radius:10px;cursor:pointer;text-align:left;color:var(--mu);font-weight:600}
+aside .nv.on{background:color-mix(in srgb,var(--pr) 14%,transparent);color:var(--pr)}
+.top{display:flex;align-items:center;gap:12px;padding:14px 24px;border-bottom:1px solid var(--br);background:var(--card)}.top h1{font-size:20px;margin:0 auto 0 0}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--pr),var(--pr2));color:#fff;display:grid;place-items:center;font-weight:700}
+main{padding:22px 24px;max-width:1100px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:16px;box-shadow:var(--sh);margin-bottom:16px}
+.stat .n{font-size:28px;font-weight:800}.stat .l{color:var(--mu);font-size:13px}.stat .i{float:right;font-size:22px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}h3{margin:0 0 12px;font-size:16px}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px}th{color:var(--mu);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+th,td{padding:10px 8px;border-bottom:1px solid var(--br);text-align:left;white-space:nowrap}
+.badge{padding:2px 10px;border-radius:99px;font-size:12px;font-weight:700;background:var(--infb);color:var(--inf)}
+.b-Shortlisted,.b-ok{background:var(--wab);color:var(--wa)}.b-Hired,.b-Approved{background:var(--okb);color:var(--ok)}.b-Rejected,.b-Pending{background:var(--badb);color:var(--bad)}.b-Pending{background:var(--wab);color:var(--wa)}
+.bar{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:13px}.bar span:first-child{width:100px;color:var(--mu)}.bar i{display:block;height:10px;border-radius:6px;background:linear-gradient(90deg,var(--pr),var(--pr2));min-width:4px}
+.fr{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;align-items:end}
+.job{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}.job .mu,.mu{color:var(--mu);font-size:13px}
+.ov{position:fixed;inset:0;background:rgba(10,14,30,.55);display:grid;place-items:center;padding:16px;z-index:20}.md{background:var(--card);border-radius:16px;padding:22px;max-width:520px;width:100%;max-height:90vh;overflow:auto}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:10px 18px;border-radius:10px;z-index:30}
+.warn{background:var(--wab);color:var(--wa);padding:10px 14px;border-radius:10px;margin-bottom:14px}
+@media(max-width:820px){.auth{grid-template-columns:1fr}.hero{padding:28px}.hero h1{font-size:28px}.app{grid-template-columns:1fr}
+aside{flex-direction:row;overflow-x:auto;padding:8px;border-right:0;border-bottom:1px solid var(--br)}.logo{display:none}aside .nv{white-space:nowrap}.two{grid-template-columns:1fr}main{padding:16px}}
+</style></head><body><div id="root"></div><div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const dd=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)},today=dd(0),ST=['Applied','Shortlisted','Rejected','Hired'];
+const CITIES=['Islamabad','Lahore','Karachi','Peshawar'];
+function seed(){const K=['IT','Finance','Teaching','Healthcare','Marketing','Engineering'];
+const co=[['Nova Tech','Islamabad',1],['FinEdge Bank','Karachi',1],['BrightMind Academy','Lahore',1],['CarePlus Hospital','Islamabad',1],['AdSpark Media','Lahore',1],['BuildRight Engineering','Karachi',1],['CloudNine Systems','Islamabad',0],['Greenfield School','Peshawar',0]];
+const jb=[[1,1,'Full Stack Developer','Islamabad',150,250,25],[1,1,'QA Engineer','Islamabad',90,140,18],[1,1,'DevOps Engineer','Lahore',160,260,30],[2,2,'Credit Analyst','Karachi',110,170,20],[2,2,'Accounts Officer','Karachi',70,100,12],
+[3,3,'Mathematics Teacher','Lahore',60,90,15],[3,3,'Computer Science Lecturer','Lahore',100,150,28],[4,4,'Staff Nurse','Islamabad',65,95,9],[4,4,'Lab Technician','Islamabad',55,80,22],[5,5,'Digital Marketing Lead','Lahore',100,160,16],
+[5,5,'Content Strategist','Lahore',75,110,-3],[6,6,'Civil Engineer','Karachi',120,190,35],[6,6,'Site Supervisor','Karachi',80,120,11],[2,1,'Data Analyst','Karachi',100,160,24]];
+const sk=[['Ayesha Khan','BS Computer Science',3],['Bilal Ahmed','MBA Finance',5],['Sana Malik','MS Education',2],['Usman Ali','BS Nursing',1],['Hira Noor','BBA Marketing',4],['Zain Raza','BE Civil',6]];
+const ap=[[1,1,'Shortlisted'],[1,2,'Applied'],[1,5,'Rejected'],[2,1,'Hired'],[3,1,'Applied'],[4,2,'Shortlisted'],[5,2,'Applied'],[6,3,'Hired'],[7,3,'Shortlisted'],[8,4,'Applied'],[10,5,'Shortlisted'],[10,1,'Applied'],[12,6,'Applied'],[13,6,'Shortlisted'],[14,2,'Applied'],[14,1,'Rejected']];
+const U=[{id:1,role:'Admin',name:'Site Admin',email:'admin@demo.com',pw:'admin123'}];
+co.forEach((c,i)=>U.push({id:10+i,role:'Employer',name:c[0]+' HR',email:i?`hr${i+1}@demo.com`:'employer@demo.com',pw:i?'demo123':'emp123',ref:i+1}));
+sk.forEach((s,i)=>U.push({id:30+i,role:'Job Seeker',name:s[0],email:i?`s${i+1}@demo.com`:'seeker@demo.com',pw:i?'demo123':'seek123',ref:i+1}));
+return{users:U,cats:K.map((name,i)=>({id:i+1,name})),companies:co.map((c,i)=>({id:i+1,name:c[0],city:c[1],approved:c[2]})),
+jobs:jb.map((j,i)=>({id:i+1,company:j[0],cat:j[1],title:j[2],city:j[3],min:j[4]*1000,max:j[5]*1000,deadline:dd(j[6])})),
+seekers:sk.map((s,i)=>({id:i+1,name:s[0],qual:s[1],exp:s[2]})),apps:ap.map(a=>({job:a[0],seeker:a[1],on:dd(-6),status:a[2]}))}}
+let DB,ME=null,V='home',AUTH='login',ROLE='Job Seeker',F={},OPEN=null;
+try{DB=JSON.parse(localStorage.getItem('hh_db')||'null');const id=localStorage.getItem('hh_me');if(DB&&id)ME=DB.users.find(u=>u.id==id)||null}catch(e){}
+if(!DB)DB=seed();
+const save=()=>{try{localStorage.setItem('hh_db',JSON.stringify(DB))}catch(e){}};
+const co=id=>DB.companies.find(c=>c.id==id),jb=id=>DB.jobs.find(j=>j.id==id),sk=id=>DB.seekers.find(s=>s.id==id),ct=id=>DB.cats.find(c=>c.id==id);
+const money=n=>'PKR '+n.toLocaleString(),nid=a=>Math.max(0,...a.map(x=>x.id))+1;
+function toast(t){const e=$('#toast');e.innerHTML=`<div class="toast">${esc(t)}</div>`;setTimeout(()=>e.innerHTML='',2600)}
+const badge=s=>`<span class="badge b-${s}">${s}</span>`;
+const stat=(l,n,i)=>`<div class="card stat"><span class="i">${i}</span><div class="n">${n}</div><div class="l">${l}</div></div>`;
+const bars=(rows)=>{const m=Math.max(1,...rows.map(r=>r[1]));return rows.map(r=>`<div class="bar"><span>${esc(r[0])}</span><i style="width:${r[1]/m*60}%"></i><b>${r[1]}</b></div>`).join('')};
+const table=(h,rows)=>rows.length?`<div class="tw"><table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table></div>`:'<p class="mu">Nothing here yet.</p>';
+/* ---------- auth ---------- */
+function authView(){const reg=AUTH==='register';
+return `<div class="auth"><section class="hero"><div style="font-size:22px;font-weight:800">💼 HireHub</div><h1>Find the right job. Hire the right people.</h1>
+<p>A simple, secure job portal connecting companies with job seekers across Pakistan.</p><div class="pts"><div>✓ Search jobs by city, category and salary</div><div>✓ Employers shortlist and hire in one place</div><div>✓ Admin-approved companies only</div></div></section>
+<section class="form"><div class="fc"><h2>${reg?'Create your account':'Welcome back'}</h2><div class="mu">${reg?'Join HireHub in a minute.':'Sign in to continue.'}</div>
+<div class="seg"><button class="${reg?'':'on'}" onclick="AUTH='login';draw()">Login</button><button class="${reg?'on':''}" onclick="AUTH='register';draw()">Register</button></div>
+${reg?`<div class="seg"><button class="${ROLE==='Job Seeker'?'on':''}" onclick="ROLE='Job Seeker';draw()">I am a Job Seeker</button><button class="${ROLE==='Employer'?'on':''}" onclick="ROLE='Employer';draw()">I am an Employer</button></div>
+<label class="fl">${ROLE==='Employer'?'Company name':'Full name'}<input id="rn"></label>
+${ROLE==='Employer'?`<label class="fl">City<select id="rc">${CITIES.map(c=>`<option>${c}</option>`).join('')}</select></label>`:`<label class="fl">Qualification<input id="rq" placeholder="e.g. BS Computer Science"></label><label class="fl">Experience (years)<input id="re" type="number" min="0" value="0"></label>`}`:''}
+<label class="fl">Email<input id="em" type="email" autocomplete="username"></label><label class="fl">Password<input id="pw" type="password" autocomplete="current-password"></label>
+<button class="btn p" style="width:100%;margin-top:8px" onclick="${reg?'doReg()':'doLogin()'}">${reg?'Create account':'Sign in'}</button>
+${reg?'':`<div class="demo"><b>Demo accounts</b> (click to fill)<br><button class="btn sm" onclick="fill('admin@demo.com','admin123')">Admin</button><button class="btn sm" onclick="fill('employer@demo.com','emp123')">Employer</button><button class="btn sm" onclick="fill('seeker@demo.com','seek123')">Job Seeker</button></div>`}</div></section></div>`}
+function fill(e,p){$('#em').value=e;$('#pw').value=p}
+function doLogin(){const u=DB.users.find(x=>x.email===$('#em').value.trim().toLowerCase()&&x.pw===$('#pw').value);if(!u)return toast('Invalid email or password');loginAs(u)}
+function loginAs(u){ME=u;V='home';OPEN=null;try{localStorage.setItem('hh_me',u.id)}catch(e){}draw()}
+function logout(){ME=null;AUTH='login';try{localStorage.removeItem('hh_me')}catch(e){}draw()}
+function doReg(){const name=$('#rn').value.trim(),email=$('#em').value.trim().toLowerCase(),pw=$('#pw').value;
+if(!name||!email||pw.length<6)return toast('Fill all fields; password needs 6+ characters');if(DB.users.some(u=>u.email===email))return toast('Email already registered');
+let ref;if(ROLE==='Employer'){if(DB.companies.some(c=>c.name.toLowerCase()===name.toLowerCase()))return toast('Company name already exists');ref=nid(DB.companies);DB.companies.push({id:ref,name,city:$('#rc').value,approved:0})}
+else{ref=nid(DB.seekers);DB.seekers.push({id:ref,name,qual:$('#rq').value||'Not set',exp:Math.max(0,+$('#re').value||0)})}
+const u={id:nid(DB.users),role:ROLE,name,email,pw,ref};DB.users.push(u);save();toast(ROLE==='Employer'?'Account created – awaiting admin approval':'Welcome to HireHub!');loginAs(u)}
+/* ---------- layout ---------- */
+const NAV={Admin:[['home','📊','Dashboard'],['companies','🏢','Companies'],['jobs','📋','All jobs'],['users','👥','Users']],
+Employer:[['home','📊','Dashboard'],['post','➕','Post a job'],['jobs','📋','My jobs & applicants'],['profile','🏢','Company']],
+'Job Seeker':[['home','📊','Dashboard'],['search','🔎','Find jobs'],['apps','📨','My applications'],['profile','👤','My profile']]};
+function shell(){const items=NAV[ME.role],cur=items.find(i=>i[0]===V)||items[0];
+return `<div class="app"><aside><div class="logo">💼 HireHub</div>${items.map(i=>`<button class="nv ${i[0]===cur[0]?'on':''}" onclick="V='${i[0]}';OPEN=null;draw()"><span>${i[1]}</span>${i[2]}</button>`).join('')}</aside>
+<div><div class="top"><h1>${cur[2]}</h1><span class="badge">${ME.role}</span><span class="av">${esc(ME.name[0])}</span><button class="btn sm" onclick="logout()">Log out</button></div><main>${(VIEWS[ME.role][cur[0]])()}</main></div></div>`}
+function draw(){$('#root').innerHTML=ME?shell():authView()}
+const appsOf=j=>DB.apps.filter(a=>a.job==j);
+/* ---------- admin ---------- */
+const VIEWS={Admin:{},Employer:{},'Job Seeker':{}};
+VIEWS.Admin.home=()=>{const cnt=s=>DB.apps.filter(a=>a.status===s).length;
+return `<div class="grid">${stat('Companies',DB.companies.length,'🏢')}${stat('Pending approval',DB.companies.filter(c=>!c.approved).length,'⏳')}${stat('Open jobs',DB.jobs.filter(j=>j.deadline>=today).length,'📋')}${stat('Job seekers',DB.seekers.length,'👤')}${stat('Applications',DB.apps.length,'📨')}</div>
+<div class="two"><div class="card"><h3>Applications by status</h3>${bars(ST.map(s=>[s,cnt(s)]))}</div><div class="card"><h3>Jobs by category</h3>${bars(DB.cats.map(c=>[c.name,DB.jobs.filter(j=>j.cat==c.id).length]))}</div></div>
+<div class="card"><h3>Awaiting approval</h3>${table(['Company','City',''],DB.companies.filter(c=>!c.approved).map(c=>[esc(c.name),c.city,`<button class="btn sm p" onclick="approve(${c.id},1)">Approve</button>`]))}</div>`};
+VIEWS.Admin.companies=()=>`<div class="card">${table(['Company','City','Jobs','Status',''],DB.companies.map(c=>[esc(c.name),c.city,DB.jobs.filter(j=>j.company==c.id).length,badge(c.approved?'Approved':'Pending'),`<button class="btn sm ${c.approved?'d':'p'}" onclick="approve(${c.id},${c.approved?0:1})">${c.approved?'Revoke':'Approve'}</button>`]))}</div>`;
+function approve(id,v){co(id).approved=v;save();toast(v?'Company approved':'Approval revoked');draw()}
+VIEWS.Admin.jobs=()=>`<div class="card">${table(['Job','Company','City','Salary','Deadline','Applicants',''],DB.jobs.map(j=>[esc(j.title),esc(co(j.company)?.name),j.city,money(j.min)+' – '+money(j.max),j.deadline,appsOf(j.id).length,`<button class="btn sm d" onclick="delJob(${j.id})">Delete</button>`]))}</div>`;
+function delJob(id){if(!confirm('Delete this job and its applications?'))return;DB.jobs=DB.jobs.filter(j=>j.id!=id);DB.apps=DB.apps.filter(a=>a.job!=id);save();toast('Job deleted');draw()}
+VIEWS.Admin.users=()=>`<div class="card">${table(['Name','Email','Role'],DB.users.map(u=>[esc(u.name),esc(u.email),u.role]))}</div>`;
+/* ---------- employer ---------- */
+const myCo=()=>co(ME.ref);
+const warnCo=()=>myCo().approved?'':'<div class="warn">⏳ Your company is awaiting admin approval. You can post jobs once it is approved.</div>';
+VIEWS.Employer.home=()=>{const js=DB.jobs.filter(j=>j.company==ME.ref),as=DB.apps.filter(a=>js.some(j=>j.id==a.job));
+return `${warnCo()}<div class="grid">${stat('Active jobs',js.filter(j=>j.deadline>=today).length,'📋')}${stat('Applicants',as.length,'📨')}${stat('Shortlisted',as.filter(a=>a.status==='Shortlisted').length,'⭐')}${stat('Hired',as.filter(a=>a.status==='Hired').length,'✅')}</div>
+<div class="two"><div class="card"><h3>Pipeline</h3>${bars(ST.map(s=>[s,as.filter(a=>a.status===s).length]))}</div><div class="card"><h3>Applicants per job</h3>${bars(js.map(j=>[j.title.slice(0,14),appsOf(j.id).length]))||'<p class="mu">No jobs yet.</p>'}</div></div>`};
+VIEWS.Employer.post=()=>`${warnCo()}<div class="card"><h3>New job posting</h3><div class="fr">
+<label class="fl">Title<input id="jt"></label><label class="fl">City<select id="jc">${CITIES.map(c=>`<option>${c}</option>`).join('')}</select></label>
+<label class="fl">Category<select id="jk">${DB.cats.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')}</select></label>
+<label class="fl">Min salary (PKR)<input id="jl" type="number" min="0"></label><label class="fl">Max salary (PKR)<input id="jh" type="number" min="0"></label><label class="fl">Deadline<input id="jd" type="date" value="${dd(30)}"></label></div>
+<button class="btn p" style="margin-top:10px" onclick="postJob()">Publish job</button></div>`;
+function postJob(){if(!myCo().approved)return toast('Company is not approved yet');const t=$('#jt').value.trim(),lo=+$('#jl').value,hi=+$('#jh').value;
+if(!t||!lo||!hi)return toast('Fill title and salary');if(hi<lo)return toast('Max salary must be ≥ min salary');
+DB.jobs.push({id:nid(DB.jobs),company:ME.ref,cat:+$('#jk').value,title:t,city:$('#jc').value,min:lo,max:hi,deadline:$('#jd').value});save();toast('Job published');V='jobs';draw()}
+VIEWS.Employer.jobs=()=>{const js=DB.jobs.filter(j=>j.company==ME.ref),o=OPEN&&jb(OPEN);
+return `<div class="card">${table(['Job','City','Deadline','Applicants',''],js.map(j=>[esc(j.title),j.city,j.deadline,appsOf(j.id).length,`<button class="btn sm" onclick="OPEN=${j.id};draw()">View applicants</button>`]))}</div>
+${o&&o.company==ME.ref?`<div class="card"><h3>Applicants – ${esc(o.title)}</h3>${table(['Name','Qualification','Experience','Applied','Status'],appsOf(o.id).map(a=>{const s=sk(a.seeker);return [esc(s.name),esc(s.qual),s.exp+' yrs',a.on,`<select onchange="setSt(${a.job},${a.seeker},this.value)">${ST.map(x=>`<option ${x===a.status?'selected':''}>${x}</option>`).join('')}</select>`]}))}</div>`:''}`};
+function setSt(j,s,v){DB.apps.find(a=>a.job==j&&a.seeker==s).status=v;save();toast('Status set to '+v)}
+VIEWS.Employer.profile=()=>{const c=myCo();return `<div class="card"><h3>Company profile</h3><p><b>${esc(c.name)}</b><br><span class="mu">${c.city} · ${esc(ME.email)}</span></p>${badge(c.approved?'Approved':'Pending')}</div>`};
+/* ---------- seeker ---------- */
+const mine=()=>DB.apps.filter(a=>a.seeker==ME.ref);
+VIEWS['Job Seeker'].home=()=>{const m=mine();return `<div class="grid">${stat('Applications',m.length,'📨')}${stat('Shortlisted',m.filter(a=>a.status==='Shortlisted').length,'⭐')}${stat('Hired',m.filter(a=>a.status==='Hired').length,'✅')}${stat('Open jobs',openJobs().length,'🔎')}</div>
+<div class="card"><h3>Latest openings</h3>${openJobs().slice(0,4).map(jobRow).join('')}</div>`};
+const openJobs=()=>DB.jobs.filter(j=>j.deadline>=today&&co(j.company)?.approved);
+const jobRow=j=>`<div class="job" style="padding:10px 0;border-bottom:1px solid var(--br)"><div><b>${esc(j.title)}</b> <span class="badge">${esc(ct(j.cat).name)}</span><div class="mu">${esc(co(j.company).name)} · ${j.city} · ${money(j.min)} – ${money(j.max)}</div></div><button class="btn sm p" onclick="showJob(${j.id})">View &amp; apply</button></div>`;
+VIEWS['Job Seeker'].search=()=>{const r=openJobs().filter(j=>(!F.c||j.city===F.c)&&(!F.k||j.cat==F.k)&&(!F.s||j.max>=+F.s*1000)&&(!F.q||j.title.toLowerCase().includes(F.q.toLowerCase())));
+return `<div class="card"><div class="fr"><label class="fl">Keyword<input id="fq" value="${esc(F.q||'')}"></label><label class="fl">City<select id="fc"><option value="">All</option>${CITIES.map(c=>`<option ${F.c===c?'selected':''}>${c}</option>`).join('')}</select></label>
+<label class="fl">Category<select id="fk"><option value="">All</option>${DB.cats.map(c=>`<option value="${c.id}" ${F.k==c.id?'selected':''}>${c.name}</option>`).join('')}</select></label>
+<label class="fl">Min salary (K PKR)<input id="fs" type="number" value="${F.s||''}"></label><button class="btn p" onclick="F={q:$('#fq').value,c:$('#fc').value,k:$('#fk').value,s:$('#fs').value};draw()">Search</button></div></div>
+<div class="card"><h3>${r.length} job(s) found</h3>${r.map(jobRow).join('')||'<p class="mu">No matching jobs.</p>'}</div>`};
+function showJob(id){const j=jb(id),done=DB.apps.some(a=>a.job==id&&a.seeker==ME.ref);
+const d=document.createElement('div');d.className='ov';d.onclick=e=>{if(e.target===d)d.remove()};
+d.innerHTML=`<div class="md"><h2 style="margin:0">${esc(j.title)}</h2><p class="mu">${esc(co(j.company).name)} · ${j.city} · ${esc(ct(j.cat).name)}</p>
+<p><b>Salary:</b> ${money(j.min)} – ${money(j.max)}<br><b>Apply before:</b> ${j.deadline}</p><p class="mu">Join a growing team and build your career. Candidates are reviewed by the employer and notified of their status here.</p>
+<button class="btn p" ${done?'disabled':''} id="ap">${done?'Already applied':'Apply now'}</button> <button class="btn" onclick="this.closest('.ov').remove()">Close</button></div>`;
+document.body.appendChild(d);$('#ap').onclick=()=>{if(j.deadline<today)return toast('Deadline passed');if(DB.apps.some(a=>a.job==id&&a.seeker==ME.ref))return toast('Already applied');
+DB.apps.push({job:id,seeker:ME.ref,on:today,status:'Applied'});save();d.remove();toast('Application submitted!');draw()}}
+VIEWS['Job Seeker'].apps=()=>`<div class="card">${table(['Job','Company','Applied','Status'],mine().map(a=>{const j=jb(a.job);return [esc(j?.title),esc(co(j?.company)?.name),a.on,badge(a.status)]}))}</div>`;
+VIEWS['Job Seeker'].profile=()=>{const s=sk(ME.ref);return `<div class="card" style="max-width:480px"><h3>My profile</h3><label class="fl">Name<input id="pn" value="${esc(s.name)}"></label><label class="fl">Qualification<input id="pq" value="${esc(s.qual)}"></label>
+<label class="fl">Experience (years)<input id="pe" type="number" min="0" value="${s.exp}"></label><button class="btn p" onclick="saveProf()">Save changes</button></div>`};
+function saveProf(){const s=sk(ME.ref);s.name=$('#pn').value||s.name;s.qual=$('#pq').value;s.exp=Math.max(0,+$('#pe').value||0);ME.name=s.name;save();toast('Profile saved');draw()}
+draw();
+</script></body></html>
